@@ -51,7 +51,7 @@ resource "aws_subnet" "f5-xc-services-workload" {
   vpc_id                  = aws_vpc.f5-xc-services.id
   for_each                = var.servicesVpc1.workload
   cidr_block              = each.value.cidr
-  map_public_ip_on_launch = "true"
+  map_public_ip_on_launch = "false"
   availability_zone       = var.servicesVpc1.azs[each.key]["az"]
 
   tags = {
