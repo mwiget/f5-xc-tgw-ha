@@ -35,7 +35,6 @@ resource "aws_subnet" "f5-xc-spoke-workload" {
   }
 }
 
-
 resource "aws_internet_gateway" "f5-xc-spoke-vpc-gw" {
   vpc_id = aws_vpc.f5-xc-spoke.id
 
@@ -57,6 +56,12 @@ resource "aws_route" "spoke-internet-rt" {
   destination_cidr_block = "0.0.0.0/0"
   gateway_id             = aws_internet_gateway.f5-xc-spoke-vpc-gw.id
   depends_on             = [aws_route_table.f5-xc-spoke-vpc-external-rt]
+}
+
+resource "aws_route_table_association" "f5-xc-spoke-external-association" {
+  for_each       = aws_subnet.f5-xc-spoke-external
+  subnet_id      = each.value.id
+  route_table_id = aws_route_table.f5-xc-spoke-vpc-external-rt.id
 }
 
 resource "aws_security_group" "f5-xc-spoke-vpc" {
