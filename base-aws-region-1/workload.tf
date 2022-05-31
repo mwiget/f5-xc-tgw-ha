@@ -4,8 +4,8 @@
 resource "aws_instance" "f5-workload-1" {
   ami           = data.aws_ami.ubuntu.id
   instance_type = "t3.micro"
-  subnet_id     = var.spokeWorkloadSubnets["az1"].id
-  vpc_security_group_ids = [var.spokeSecurityGroup]
+  subnet_id     = aws_subnet.f5-xc-spoke-workload["az1"].id
+  vpc_security_group_ids = [aws_security_group.f5-xc-spoke-vpc.id]
   key_name               = var.ssh_key
   user_data              = <<-EOF
 #!/bin/bash

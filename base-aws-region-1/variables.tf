@@ -46,3 +46,7 @@ variable "spokeVpc1" {
   type        = map(any)
 }
 
+variable ssh_key {
+    type = string
+}
+
