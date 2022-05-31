@@ -12,7 +12,7 @@ tasks:
       gp env VOLT_API_CA_CERT="/home/gitpod/public_server_ca.crt"
       echo "server-urls: $VOLT_API_URL" > ~/.vesconfig
       echo "p12-bundle: $VOLT_API_P12_FILE" >> ~/.vesconfig
-      echo $SSH_PRIVATE_KEY ~/.ssh/id_rsa
+      echo $SSH_PRIVATE_KEY | base64 -d > ~/.ssh/id_rsa
       chmod 400 ~/.ssh/id_rsa
       ssh-keygen -y -f ~/.ssh/id_rsa > ~/.ssh/id_rsa.pub
     init: |
