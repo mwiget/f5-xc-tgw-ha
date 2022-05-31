@@ -62,6 +62,17 @@ inputs = {
         "az2" = { az = "eu-north-1b" },
         "az3" = { az = "eu-north-1c" },
       },
+      "external" = {
+        "az1" = {
+          cidr = "10.0.0.0/24"
+        },
+        "az2" = {
+          cidr = "10.0.3.0/24"
+        },
+        "az3" = {
+          cidr = "10.0.6.0/24"
+        }
+      },
       "workload" = {
         "az1" = {
           cidr = "10.0.2.0/24"
