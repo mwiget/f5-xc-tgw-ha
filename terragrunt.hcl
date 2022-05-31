@@ -86,6 +86,80 @@ inputs = {
       }
     }
 
+    awsRegion2    = "us-west-2"
+    servicesVpcCidrBlock2 = "100.64.32.0/20"
+    servicesVpc2  = {
+      "azs" = {
+        "az1" = { az = "us-west-2a" },
+        "az2" = { az = "us-west-2b" },
+        "az3" = { az = "us-west-2c" },
+      },
+      "external" = {
+        "az1" = {
+          cidr = "100.64.32.0/24"
+        },
+        "az2" = {
+          cidr = "100.64.35.0/24"
+        },
+        "az3" = {
+          cidr = "100.64.36.0/24"
+        }
+      },
+      "internal" = {
+        "az1" = {
+          cidr = "100.64.33.0/24"
+        },
+        "az2" = {
+          cidr = "100.64.37.0/24"
+        },
+        "az3" = {
+          cidr = "100.64.39.0/24"
+        }
+      },
+      "workload" = {
+        "az1" = {
+          cidr = "100.64.34.0/24"
+        },
+        "az2" = {
+          cidr = "100.64.38.0/24"
+        },
+        "az3" = {
+          cidr = "100.64.40.0/24"
+        }
+      }
+    }
+
+    spokeVpcCidrBlock2 = "10.0.32.0/20"
+    spokeVpc2  = {
+      "azs" = {
+        "az1" = { az = "us-west-2a" },
+        "az2" = { az = "us-west-2b" },
+        "az3" = { az = "us-west-2c" },
+      },
+      "external" = {
+        "az1" = {
+          cidr = "10.0.32.0/24"
+        },
+        "az2" = {
+          cidr = "10.0.35.0/24"
+        },
+        "az3" = {
+          cidr = "10.0.38.0/24"
+        }
+      },
+      "workload" = {
+        "az1" = {
+          cidr = "10.0.34.0/24"
+        },
+        "az2" = {
+          cidr = "10.0.37.0/24"
+        },
+        "az3" = {
+          cidr = "10.0.40.0/24"
+        }
+      }
+    }
+
     # this key name must already exist in AWS region
     # only used for AWS sites
     ssh_key                = "mwiget-ed25519"
