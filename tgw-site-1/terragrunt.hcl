@@ -3,11 +3,11 @@ include "root" {
 }
 
 dependencies {
-  paths = ["../base-aws-network"]
+  paths = ["../base-aws-region-1"]
 }
 
 dependency "infrastructure" {
-  config_path = "../base-aws-network"
+  config_path = "../base-aws-region-1"
 }
 
 inputs = {

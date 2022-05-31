@@ -22,6 +22,12 @@ output internalSubnets {
 output workloadSubnets {
   value = aws_subnet.f5-xc-services-workload
 }
+output spokeExternalSubnets {
+  value   = aws_subnet.f5-xc-spoke-external
+}
+output spokeWorkloadSubnets {
+  value = aws_subnet.f5-xc-spoke-workload
+}
 output securityGroup {
   value   = aws_security_group.f5-xc-vpc.id
 }

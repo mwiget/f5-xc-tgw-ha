@@ -18,11 +18,6 @@ variable "volterraCloudCredAWS" {
   type        = string
 }
 
-variable "volterraCloudCredAzure" {
-  description = "Name of the volterra aws credentials"
-  type        = string
-}
-
 variable "awsRegion1" {
   description = "aws region 1"
   type        = string
