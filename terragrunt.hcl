@@ -13,9 +13,7 @@ inputs = {
     # these values are also hardcoded as AZs in base-aws-network variables file
 
     awsRegion1    = "eu-north-1"
-    variable "servicesVpcCidrBlock1" {
-      default = "100.64.0.0/20"
-    }
+    servicesVpcCidrBlock1 = "100.64.0.0/20"
     servicesVpc1  = {
       "azs" = {
         "az1" = { az = "eu-north-1a" },

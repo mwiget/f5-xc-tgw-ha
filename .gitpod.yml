@@ -13,6 +13,7 @@ tasks:
       echo "server-urls: $VOLT_API_URL" > ~/.vesconfig
       echo "p12-bundle: $VOLT_API_P12_FILE" >> ~/.vesconfig
     init: |
+      terragrunt run-all init
       echo "tasks - init"
     command: |
       echo "tasks - command"

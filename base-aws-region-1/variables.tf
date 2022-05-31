@@ -8,11 +8,6 @@ variable "projectPrefix" {
   description = "projectPrefix name for tagging"
 }
 
-variable "trusted_ip" {
-  type        = string
-  description = "IP to allow external access"
-}
-
 variable "awsRegion1" {
   description = "aws region 1"
   type        = string

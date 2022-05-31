@@ -1,6 +1,6 @@
 	
 resource "aws_vpc" "f5-xc-spoke" {
-  cidr_block           = var.spokeVpc1CidrBlock1
+  cidr_block           = var.spokeVpcCidrBlock1
   instance_tenancy     = "default"
   enable_dns_support   = "true"
   enable_dns_hostnames = "true"
@@ -8,30 +8,6 @@ resource "aws_vpc" "f5-xc-spoke" {
 
   tags = {
     Name = "${var.projectPrefix}-f5-xc-spoke-vpc"
-  }
-}
-
-resource "aws_subnet" "f5-xc-spoke-external" {
-  vpc_id                  = aws_vpc.f5-xc-spoke.id
-  for_each                = var.spokeVpc1.external
-  cidr_block              = each.value.cidr
-  map_public_ip_on_launch = "true"
-  availability_zone       = var.spokeVpc1.azs[each.key]["az"]
-
-  tags = {
-    Name = "${var.projectPrefix}-f5-xc-spoke-external-${each.key}"
-  }
-}
-
-resource "aws_subnet" "f5-xc-spoke-internal" {
-  vpc_id                  = aws_vpc.f5-xc-spoke.id
-  for_each                = var.spokeVpc1.internal
-  cidr_block              = each.value.cidr
-  map_public_ip_on_launch = "false"
-  availability_zone       = var.spokeVpc1.azs[each.key]["az"]
-
-  tags = {
-    Name = "${var.projectPrefix}-f5-xc-spoke-external-${each.key}"
   }
 }
 
@@ -69,12 +45,6 @@ resource "aws_route" "spoke-internet-rt" {
   destination_cidr_block = "0.0.0.0/0"
   gateway_id             = aws_internet_gateway.f5-xc-spoke-vpc-gw.id
   depends_on             = [aws_route_table.f5-xc-spoke-vpc-external-rt]
-}
-
-resource "aws_route_table_association" "f5-xc-spoke-external-association" {
-  for_each       = aws_subnet.f5-xc-spoke-external
-  subnet_id      = each.value.id
-  route_table_id = aws_route_table.f5-xc-spoke-vpc-external-rt.id
 }
 
 resource "aws_security_group" "f5-xc-spoke-vpc" {

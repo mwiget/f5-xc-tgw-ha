@@ -5,13 +5,13 @@ output awsRegion1 {
   value = var.awsRegion1
 }
 output awsAz1 {
-  value = var.servicesVpc.azs["az1"]["az"]
+  value = var.servicesVpc1.azs["az1"]["az"]
 }
 output awsAz2 {
-  value = var.servicesVpc.azs["az2"]["az"]
+  value = var.servicesVpc1.azs["az2"]["az"]
 }
 output awsAz3 {
-  value = var.servicesVpc.azs["az3"]["az"]
+  value = var.servicesVpc1.azs["az3"]["az"]
 }
 output externalSubnets {
   value = aws_subnet.f5-xc-services-external
@@ -43,5 +43,5 @@ output serviceExternalRouteTable {
 }
 
 output serviceCidrBlock {
-  value = var.servicesVpcCidrBlock
+  value = var.servicesVpcCidrBlock1
 }
