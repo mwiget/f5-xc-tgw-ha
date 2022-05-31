@@ -9,7 +9,7 @@ resource "aws_instance" "f5-workload-1" {
   key_name               = var.ssh_key
   user_data              = <<-EOF
 #!/bin/bash
-sleep 30
+until ping -c3 -W1 1.1.1.1; do echo "waiting for internet connectivity ..." && sleep 5; done
 snap install docker
 systemctl enable snap.docker.dockerd
 systemctl start snap.docker.dockerd
