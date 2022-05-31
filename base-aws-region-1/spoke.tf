@@ -11,6 +11,18 @@ resource "aws_vpc" "f5-xc-spoke" {
   }
 }
 
+resource "aws_subnet" "f5-xc-spoke-external" {
+  vpc_id                  = aws_vpc.f5-xc-spoke.id
+  for_each                = var.spokeVpc1.external
+  cidr_block              = each.value.cidr
+  map_public_ip_on_launch = "true"
+  availability_zone       = var.spokeVpc1.azs[each.key]["az"]
+
+  tags = {
+    Name = "${var.projectPrefix}-f5-xc-spoke-external-${each.key}"
+  }
+}
+
 resource "aws_subnet" "f5-xc-spoke-workload" {
   vpc_id                  = aws_vpc.f5-xc-spoke.id
   for_each                = var.spokeVpc1.workload
