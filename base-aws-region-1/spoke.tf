@@ -15,7 +15,7 @@ resource "aws_subnet" "f5-xc-spoke-workload" {
   vpc_id                  = aws_vpc.f5-xc-spoke.id
   for_each                = var.spokeVpc1.workload
   cidr_block              = each.value.cidr
-  map_public_ip_on_launch = "true"
+  map_public_ip_on_launch = "false"
   availability_zone       = var.spokeVpc1.azs[each.key]["az"]
 
   tags = {
