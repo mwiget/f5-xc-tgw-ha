@@ -16,7 +16,7 @@ resource "aws_subnet" "f5-xc-ext-client-external" {
   vpc_id                  = aws_vpc.f5-xc-ext-client.id
   cidr_block              = "192.168.0.0/24"
   map_public_ip_on_launch = "true"
-  availability_zone       = "${var.awsRegion}a"
+  availability_zone       = "${var.awsRegion1}a"
 
   tags = {
     Name = "${var.projectPrefix}-f5-xc-ext-client-external"
@@ -72,7 +72,7 @@ resource "aws_security_group" "f5-xc-sg" {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = [var.trusted_ip]
+    cidr_blocks = local.auto_trusted_cidr
   }
 
   ingress {

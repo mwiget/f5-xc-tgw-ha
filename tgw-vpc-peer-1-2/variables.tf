@@ -8,11 +8,6 @@ variable "projectPrefix" {
   description = "projectPrefix name for tagging"
 }
 
-variable "trusted_ip" {
-  type        = string
-  description = "IP to allow external access"
-}
-
 variable "namespace" {
   description = "Volterra application namespace"
   type        = string
@@ -24,12 +19,7 @@ variable "volterraCloudCredAWS" {
   type        = string
 }
 
-variable "volterraCloudCredAzure" {
-  description = "Name of the volterra aws credentials"
-  type        = string
-}
-
-variable "awsRegion" {
+variable "awsRegion1" {
   description = "aws region"
   type        = string
 }
@@ -81,7 +71,6 @@ variable "workloadSubnets" {
   type = map(any)
 }
 variable "spokeVpcId" {}
-variable "spoke2VpcId" {}
 variable "serviceCidrBlock" {}
 variable "serviceCidrBlock2" {}
 variable "serviceExternalRouteTable" {}
