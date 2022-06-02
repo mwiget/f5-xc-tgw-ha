@@ -20,7 +20,7 @@ tasks:
       echo "tasks - init"
     command: |
       echo "tasks - command"
-      terragrunt run-all apply
+      #  terragrunt run-all apply
     
 # List the ports to expose. Learn more https://www.gitpod.io/docs/config-ports/
 ports:
