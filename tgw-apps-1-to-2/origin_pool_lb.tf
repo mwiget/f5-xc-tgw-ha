@@ -1,6 +1,6 @@
 resource "volterra_healthcheck" "hc" {
   name      = format("%s-tgw2-workload-1", var.projectPrefix)
-  namespace = var.namespace
+  namespace = volterra_namespace.ns.name
 
   http_health_check {
     use_origin_server_name = true
@@ -10,11 +10,13 @@ resource "volterra_healthcheck" "hc" {
   interval            = 15
   timeout             = 1
   unhealthy_threshold = 2
+
+  depends_on = [ volterra_namespace.ns ]
 }
 
 resource "volterra_origin_pool" "workload2" {
   name                   = format("%s-tgw2-workload-1", var.projectPrefix)
-  namespace              = var.namespace
+  namespace              = volterra_namespace.ns.name
   endpoint_selection     = "DISTRIBUTED"
   loadbalancer_algorithm = "LB_OVERRIDE"
   port                   = 8080
@@ -54,13 +56,14 @@ resource "volterra_origin_pool" "workload2" {
     }
   }
   healthcheck {
-    name = format("%s-tgw-workload-2", var.projectPrefix)
+    name = format("%s-tgw2-workload-1", var.projectPrefix)
   }
+  depends_on = [ volterra_namespace.ns ]
 }
 
 resource "volterra_http_loadbalancer" "workload2" {
-  name                            = format("%s-tgw-workload-2", var.projectPrefix)
-  namespace                       = var.namespace
+  name                            = format("%s-tgw2-workload-1", var.projectPrefix)
+  namespace                       = volterra_namespace.ns.name
   no_challenge                    = true
   domains                         = ["workload.tgw2.hc.internal"]
 
@@ -92,11 +95,12 @@ resource "volterra_http_loadbalancer" "workload2" {
   http {
     dns_volterra_managed = false
   }
+  depends_on = [ volterra_namespace.ns ]
 }
 
 resource "volterra_http_loadbalancer" "workload2-to-1" {
   name                            = format("%s-tgw-workload-2-to-1", var.projectPrefix)
-  namespace                       = var.namespace
+  namespace                       = volterra_namespace.ns.name
   no_challenge                    = true
   domains                         = ["workload.tgw1.hc.internal"]
 
@@ -121,7 +125,7 @@ resource "volterra_http_loadbalancer" "workload2-to-1" {
 
   default_route_pools {
     pool {
-      name = format("%s-tgw-workload-1", var.projectPrefix)
+      name = format("%s-tgw2-workload-1", var.projectPrefix)
     }
     weight = 1
     priority = 1
@@ -130,4 +134,5 @@ resource "volterra_http_loadbalancer" "workload2-to-1" {
   http {
     dns_volterra_managed = false
   }
+  depends_on = [ volterra_namespace.ns ]
 }
