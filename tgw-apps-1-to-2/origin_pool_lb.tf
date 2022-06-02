@@ -61,43 +61,6 @@ resource "volterra_origin_pool" "workload2" {
   depends_on = [ volterra_namespace.ns ]
 }
 
-resource "volterra_http_loadbalancer" "workload2" {
-  name                            = format("%s-tgw2-workload-1", var.projectPrefix)
-  namespace                       = volterra_namespace.ns.name
-  no_challenge                    = true
-  domains                         = ["workload.tgw2.hc.internal"]
-
-  disable_rate_limit              = true
-  service_policies_from_namespace = true
-  disable_waf                     = true
-
-  advertise_custom {
-    advertise_where {
-      port = 80
-      site {
-        network = "SITE_NETWORK_OUTSIDE"
-        site {
-          name      = format("%s-tgw-2", var.projectPrefix)
-          namespace = "system"
-        }
-      }
-    }
-  }
-
-  default_route_pools {
-    pool {
-      name = volterra_origin_pool.workload2.name
-    }
-    weight = 1
-    priority = 1
-  }
-
-  http {
-    dns_volterra_managed = false
-  }
-  depends_on = [ volterra_namespace.ns ]
-}
-
 resource "volterra_http_loadbalancer" "workload2-to-1" {
   name                            = format("%s-tgw-workload-2-to-1", var.projectPrefix)
   namespace                       = volterra_namespace.ns.name
