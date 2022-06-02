@@ -1,4 +1,4 @@
-resource "volterra_healthcheck" "hc" {
+resource "volterra_healthcheck" "example" {
   name      = format("%s-tgw2-workload-1", var.projectPrefix)
   namespace = volterra_namespace.ns.name
 
@@ -65,7 +65,7 @@ resource "volterra_http_loadbalancer" "workload2-to-1" {
   name                            = format("%s-tgw-workload-2-to-1", var.projectPrefix)
   namespace                       = volterra_namespace.ns.name
   no_challenge                    = true
-  domains                         = ["workload.tgw1.hc.internal"]
+  domains                         = ["workload.tgw1.example.internal"]
 
   disable_rate_limit              = true
   service_policies_from_namespace = true
@@ -76,7 +76,7 @@ resource "volterra_http_loadbalancer" "workload2-to-1" {
       port = 80
       site {
         ### TODO should be variable
-        ip = "100.64.47.254"      
+        ip = "100.64.15.254"      
         network = "SITE_NETWORK_INSIDE"
         site {
           name      = format("%s-tgw-2", var.projectPrefix)
