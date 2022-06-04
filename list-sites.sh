@@ -4,7 +4,7 @@ projectPrefix='mwha'
 siteid=1
 for region in eu-north-1 us-west-2; do
   site="${projectPrefix}-tgw-${siteid}"
-  echo "$site:" 
+  echo "$site ($region):" 
   aws ec2 describe-instances \
   --region $region \
   --filters \
