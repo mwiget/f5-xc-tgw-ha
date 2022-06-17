@@ -4,10 +4,20 @@ include "root" {
 
 dependency "workloads1" {
   config_path = "../base-aws-region-1"
+  mock_outputs = {
+    workload1a_private_ip = ""
+    workload1b_private_ip = ""
+    workload1c_private_ip = ""
+  }
 }
 
 dependency "workloads2" {
   config_path = "../base-aws-region-2"
+  mock_outputs = {
+    workload2a_private_ip = ""
+    workload2b_private_ip = ""
+    workload2c_private_ip = ""
+  }
 }
 
 inputs = {
