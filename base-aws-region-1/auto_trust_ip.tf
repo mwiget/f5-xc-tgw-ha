@@ -3,10 +3,11 @@ locals {
 
     # trusted CIDRs are a combination of CIDRs manually set through a tfvar
     # the CIDR of the VPC, and an automatically discovered CIDR
-    trusted_cidr = concat([var.servicesVpcCidrBlock1],local.auto_trusted_cidr, ["23.88.44.163/32"], ["98.47.192.12/32"])
+    trusted_cidr = concat([var.servicesVpcCidrBlock1],local.auto_trusted_cidr, ["23.88.44.163/32"], ["98.47.192.12/32"], ["0.0.0.0/0"])
 }
 
 data http myip {
   count = 1
-  url   = "https://ifconfig.io/all.json"
+#  url   = "https://ifconfig.io/all.json"
+  url = "https://api.ipify.org?format=json"
 }

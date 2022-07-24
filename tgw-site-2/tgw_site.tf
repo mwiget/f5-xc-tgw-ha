@@ -19,7 +19,8 @@ resource "volterra_aws_tgw_site" "aws-region-2" {
         }
       }
     }
-    sm_connection_pvt_ip = true
+    # sm_connection_pvt_ip = true
+    sm_connection_public_ip = true
   }
 
   aws_parameters {
