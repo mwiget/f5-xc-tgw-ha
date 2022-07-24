@@ -2,6 +2,9 @@
 *.bak
 *.json
 
+id_ed25519*
+.env
+
 # Local .terraform directories
 **/.terraform/*
 

@@ -5,7 +5,8 @@ image:
 tasks:
   - before: |
       echo "tasks - before"
-      cp /workspace/f5-xc-tgw-ha/id_ed25519* ~/ || true
+      cp /workspace/f5-xc-tgw-ha/id_ed25519* ~/.ssh/ || true
+      source .env
     init: |
       terragrunt run-all init
       echo "tasks - init"
