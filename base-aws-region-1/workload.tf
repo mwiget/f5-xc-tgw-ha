@@ -20,6 +20,11 @@ docker run -d  --net=host --restart=always \
 -e F5DEMO_BRAND=volterra \
 -e F5DEMO_PONG_URL=http://backend.example.local:8080/pong/extended \
 public.ecr.aws/y9n2y5q5/f5-demo-httpd:openshift
+MYIP=$(/sbin/ip -o -4 addr list ens5 | awk '{print $4}' | cut -d/ -f1)
+docker run -d --net host --name badger consul agent -server -ui -node=server-1 -bootstrap-expect=1 -client=0.0.0.0 -bind=$MYIP
+docker exec badger /bin/sh -c "echo '{\"service\": {\"name\": \"workload1\", \"tags\": [\"go\"], \"port\": 8080}}' > /consul/config/workload1.json"
+docker exec badger /bin/sh -c "echo '{\"service\": {\"name\": \"workload2\", \"tags\": [\"go\"], \"port\": 8080}}' > /consul/config/workload2.json"
+docker exec badger consul reload
 EOF
 
   tags = {
